@@ -1,0 +1,79 @@
+Users Table
+  UserID 
+  FirstName
+  LastName
+  Email 
+  Password 
+  MobileNumber
+  DateOfBirth
+  Gender 
+  Profile 
+  
+  
+Address
+  AddressID
+  UserID
+  City
+  State
+  pincode
+  
+Category
+  CategoryID
+  CategoryName 
+
+
+Manufacturer
+  ManufacturerID
+  ManufacturerName
+  ManufacturerAddress
+  ManufacturerPhone
+  ManufacturerEmail
+  
+  
+Products
+  ProductID
+  ProductName
+  CategoryID
+  ManufacturerID
+  Description
+  Price
+  QuantityInStock
+  ManufacturingDate
+  ExpiryDate
+  Image
+  
+
+Carts
+  CartID
+  UserID
+  ProductID
+  Quantity
+  AddedDate
+  
+  
+  
+Orders
+  OrderID
+  UserID
+  AddressID
+  OrderDate
+  
+  
+Payments
+  PaymentID
+  OrderID
+  PaymentMethod
+  TransactionID
+  PaymentDate
+  Amount
+  
+  
+  
+Wishlist (
+  WishlistID
+  UserID
+  ProductID
+  
+  
+  
+  
