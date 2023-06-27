@@ -1,0 +1,101 @@
+CREATE DATABASE Pharmacy;
+
+USE Pharmacy;
+
+CREATE TABLE Users (
+  UserID INT PRIMARY KEY,
+  FirstName VARCHAR(50),
+  LastName VARCHAR(50),
+  Email VARCHAR(100),
+  Password VARCHAR(255),
+  MobileNumber VARCHAR(20),
+  DateOfBirth DATE,
+  Gender VARCHAR(20),
+  Profile VARCHAR(255)
+);
+
+CREATE TABLE Address (
+  AddressID INT PRIMARY KEY,
+  UserID INT,
+  City VARCHAR(50),
+  State VARCHAR(50),
+  PostalCode VARCHAR(10),
+  FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Category (
+  CategoryID INT PRIMARY KEY,
+  CategoryName VARCHAR(50)
+);
+
+CREATE TABLE Manufacturer (
+  ManufacturerID INT PRIMARY KEY,
+  ManufacturerName VARCHAR(100),
+  ManufacturerAddress VARCHAR(100),
+  ManufacturerPhone VARCHAR(20),
+  ManufacturerEmail VARCHAR(100)
+);
+
+CREATE TABLE Products (
+  ProductID INT PRIMARY KEY,
+  ProductName VARCHAR(100),
+  CategoryID INT,
+  ManufacturerID INT,
+  Description VARCHAR(255),
+  Price DECIMAL(10, 2),
+  QuantityInStock INT,
+  ManufacturingDate DATE,
+  ExpiryDate DATE,
+  Image VARCHAR(255),
+  FOREIGN KEY (CategoryID) REFERENCES Category(CategoryID) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (ManufacturerID) REFERENCES Manufacturer(ManufacturerID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Carts (
+  CartID INT PRIMARY KEY,
+  UserID INT,
+  ProductID INT,
+  Quantity INT,
+  AddedDate DATE,
+  FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Orders (
+  OrderID INT PRIMARY KEY,
+  UserID INT,
+  AddressID INT,
+  OrderDate DATE,
+  FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (AddressID) REFERENCES Address(AddressID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Payments (
+  PaymentID INT PRIMARY KEY,
+  OrderID INT,
+  PaymentMethod VARCHAR(50),
+  TransactionID VARCHAR(100),
+  PaymentDate DATE,
+  Amount DECIMAL(10, 2),
+  FOREIGN KEY (OrderID) REFERENCES Orders(OrderID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Wishlist (
+  WishlistID INT PRIMARY KEY,
+  UserID INT,
+  ProductID INT,
+  FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Reviews (
+  ReviewID INT PRIMARY KEY,
+  UserID INT,
+  ProductID INT,
+  Rating DECIMAL(2, 1),
+  ReviewComments TEXT,
+  ReviewDate DATE,
+  FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
